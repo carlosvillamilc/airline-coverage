@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AirportEntity } from 'src/airport/airport.entity';
-import { AirlineEntity } from 'src/airline/airline.entity';
-import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
+import { AirportEntity } from '../airport/airport.entity';
+import { AirlineEntity } from '../airline/airline.entity';
+import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
 
 @Injectable()
 export class AirportAirlineService {
@@ -11,7 +11,7 @@ export class AirportAirlineService {
         @InjectRepository(AirportEntity)
         private readonly airportRepository: Repository<AirportEntity>,
         @InjectRepository(AirlineEntity)
-        private readonly airlineRepository: Repository<AirlineEntity>,
+        private readonly airlineRepository: Repository<AirlineEntity>
     ) { }
 
     async addAirportToAirline(airportId: string, airlineId: string): Promise<AirlineEntity> {
@@ -19,7 +19,7 @@ export class AirportAirlineService {
         if (!airport)
             throw new BusinessLogicException("The airport with the given id was not found", BusinessError.NOT_FOUND);
 
-        const airline = await this.airlineRepository.findOne({ where: { id: airlineId }, relations: ["airlines"] });
+        const airline = await this.airlineRepository.findOne({ where: { id: airlineId }, relations: ["airports"] });
         if (!airline)
             throw new BusinessLogicException("The airline with the given id was not found", BusinessError.NOT_FOUND);
 

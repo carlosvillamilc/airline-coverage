@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, JoinTable, PrimaryGeneratedColumn } from 'typeorm';
-import { AirlineEntity } from 'src/airline/airline.entity';
+import { AirlineEntity } from '../airline/airline.entity';
 @Entity()
 export class AirportEntity {
     @PrimaryGeneratedColumn('uuid')

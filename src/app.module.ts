@@ -12,6 +12,7 @@ import { AirportAirlineModule } from './airport-airline/airport-airline.module';
 @Module({
   imports: [AirlineModule, 
     AirportModule,
+    AirportAirlineModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -24,7 +25,6 @@ import { AirportAirlineModule } from './airport-airline/airport-airline.module';
       synchronize: true,
       keepConnectionAlive: true
     }),
-    AirportAirlineModule,
   ],
   controllers: [AppController],
   providers: [AppService],

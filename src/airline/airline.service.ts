@@ -25,6 +25,8 @@ export class AirlineService {
 
     async create(airline: AirlineEntity): Promise<AirlineEntity> {
         let actualDate = new Date(Date.now());
+        console.log("actualDate",actualDate);
+        console.log("foundingDate",airline.founding_date)
         if (airline.founding_date >= actualDate) {
             throw new BusinessLogicException("Airline founding date must be in the past", BusinessError.BAD_REQUEST);
         }
