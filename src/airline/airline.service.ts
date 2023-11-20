@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AirlineEntity } from './airline.entity';
 import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
-
+import { checkUUID } from '../shared/utils';
 @Injectable()
 export class AirlineService {
     constructor(
@@ -16,6 +16,11 @@ export class AirlineService {
     }
 
     async findOne(id: string): Promise<AirlineEntity> {
+
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
+
         const airline: AirlineEntity = await this.airlineRepository.findOne({ where: { id } });
         if (!airline)
             throw new BusinessLogicException("The airline with the given id was not found", BusinessError.NOT_FOUND);
@@ -25,8 +30,7 @@ export class AirlineService {
 
     async create(airline: AirlineEntity): Promise<AirlineEntity> {
         let actualDate = new Date(Date.now());
-        console.log("actualDate",actualDate);
-        console.log("foundingDate",airline.founding_date)
+     
         if (airline.founding_date >= actualDate) {
             throw new BusinessLogicException("Airline founding date must be in the past", BusinessError.BAD_REQUEST);
         }
@@ -34,6 +38,11 @@ export class AirlineService {
     }
 
     async update(id: string, airline: AirlineEntity): Promise<AirlineEntity> {
+
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
+
         const persistedAirline: AirlineEntity = await this.airlineRepository.findOne({ where: { id } });
         if (!persistedAirline)
             throw new BusinessLogicException("The airline with the given id was not found", BusinessError.NOT_FOUND);
@@ -47,10 +56,17 @@ export class AirlineService {
     }
 
     async delete(id: string) {
+        
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
+        
         const airline: AirlineEntity = await this.airlineRepository.findOne({ where: { id } });
         if (!airline)
             throw new BusinessLogicException("The airline with the given id was not found", BusinessError.NOT_FOUND);
 
         await this.airlineRepository.remove(airline);
     }
+
+
 }

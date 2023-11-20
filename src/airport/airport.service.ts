@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AirportEntity } from './airport.entity';
 import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
-
+import { checkUUID } from '../shared/utils';
 @Injectable()
 export class AirportService {
     constructor(
@@ -16,6 +16,11 @@ export class AirportService {
     }
 
     async findOne(id: string): Promise<AirportEntity> {
+        
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
+
         const airport: AirportEntity = await this.airportRepository.findOne({ where: { id } });
         if (!airport)
             throw new BusinessLogicException("The airport with the given id was not found", BusinessError.NOT_FOUND);
@@ -31,6 +36,10 @@ export class AirportService {
     }
 
     async update(id: string, airport: AirportEntity): Promise<AirportEntity> {
+ 
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
         const persistedAirport: AirportEntity = await this.airportRepository.findOne({ where: { id } });
         
         if (!persistedAirport)
@@ -44,10 +53,15 @@ export class AirportService {
     }
 
     async delete(id: string) {
+        
+        if(checkUUID(id) == false){
+            throw new BusinessLogicException("The provided id hasn't UUID format", BusinessError.BAD_REQUEST);
+        }
         const airport: AirportEntity = await this.airportRepository.findOne({ where: { id } });
         if (!airport)
             throw new BusinessLogicException("The airport with the given id was not found", BusinessError.NOT_FOUND);
 
         await this.airportRepository.remove(airport);
     }
+
 }

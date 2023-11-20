@@ -59,7 +59,7 @@ describe('AirportService', () => {
   });
 
   it('findOne should throw an exception for an invalid airport', async () => {
-    await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "The airport with the given id was not found")
+    await expect(() => service.findOne("7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airport with the given id was not found")
   });
 
   it('create should return a new airport', async () => {
@@ -111,7 +111,7 @@ describe('AirportService', () => {
       country : "New Airport Country",
       code : "ABC"
     }
-    await expect(() => service.update("0", airport)).rejects.toHaveProperty("message", "The airport with the given id was not found")
+    await expect(() => service.update("7f29b477-ba35-44a6-aa12-d163721af71c", airport)).rejects.toHaveProperty("message", "The airport with the given id was not found")
   });
 
   it('delete should remove a airport', async () => {
@@ -125,7 +125,7 @@ describe('AirportService', () => {
   it('delete should throw an exception for an invalid airport', async () => {
     const airport: AirportEntity = airportList[0];
     await service.delete(airport.id);
-    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "The airport with the given id was not found")
+    await expect(() => service.delete("7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airport with the given id was not found")
   });
  
 });

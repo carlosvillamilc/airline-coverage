@@ -59,7 +59,7 @@ describe('AirlineService', () => {
   });
 
   it('findOne should throw an exception for an invalid airline', async () => {
-    await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "The airline with the given id was not found")
+    await expect(() => service.findOne("7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found")
   });
 
   it('create should return a new airline', async () => {
@@ -111,7 +111,7 @@ describe('AirlineService', () => {
       founding_date: faker.date.future(),
       web_site: faker.internet.url(),
     }
-    await expect(() => service.update("0", airline)).rejects.toHaveProperty("message", "The airline with the given id was not found")
+    await expect(() => service.update("7f29b477-ba35-44a6-aa12-d163721af71c", airline)).rejects.toHaveProperty("message", "The airline with the given id was not found")
   });
 
   it('delete should remove a airline', async () => {
@@ -125,7 +125,7 @@ describe('AirlineService', () => {
   it('delete should throw an exception for an invalid airport', async () => {
     const airline: AirlineEntity = airlineList[0];
     await service.delete(airline.id);
-    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "The airline with the given id was not found")
+    await expect(() => service.delete("7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found")
   });
 
 });

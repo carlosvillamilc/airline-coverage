@@ -76,7 +76,7 @@ describe('AirportAirlineService', () => {
 
   it('addAirportToAirline should throw an exception for a non-existent airline', async () => {
     const newAirport: AirportEntity = airportList[0];    
-    await expect(service.addAirportToAirline(newAirport.id, "0")).rejects.toHaveProperty("message", "The airline with the given id was not found");
+    await expect(service.addAirportToAirline(newAirport.id, "7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found");
   });
 
   it('findAirportsFromAirline should return airports from a airline', async () => {
@@ -85,16 +85,16 @@ describe('AirportAirlineService', () => {
   });
 
   it('findAirportsFromAirline should throw an exception for a non-existent airline', async () => {
-    await expect(service.findAirportsFromAirline("0")).rejects.toHaveProperty("message", "The airline with the given id was not found");
+    await expect(service.findAirportsFromAirline("7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found");
   });
 
   it('addAirportToAirline should throw an exception for a non-existent airport', async () => {
-    await expect(service.addAirportToAirline("0", airline.id)).rejects.toHaveProperty("message", "The airport with the given id was not found");
+    await expect(service.addAirportToAirline("7f29b477-ba35-44a6-aa12-d163721af71c", airline.id)).rejects.toHaveProperty("message", "The airport with the given id was not found");
   });
 
   it('findAirportFromAirline should throw an exception for a non-existent airline', async () => {
     const airport: AirportEntity = airportList[0];
-    await expect(service.findAirportFromAirline(airport.id, "0")).rejects.toHaveProperty("message", "The airline with the given id was not found");
+    await expect(service.findAirportFromAirline(airport.id, "7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found");
   });
 
   it('findAirportFromAirline should return a specific airport from a airline', async () => {
@@ -113,7 +113,7 @@ describe('AirportAirlineService', () => {
 
   it('updateAirportsFromAirline should throw an exception for a non-existent airline', async () => {
     const newAirportList = [airportList[0].id];
-    await expect(service.updateAirportsFromAirline("0", newAirportList)).rejects.toHaveProperty("message", "The airline with the given id was not found");
+    await expect(service.updateAirportsFromAirline("7f29b477-ba35-44a6-aa12-d163721af71c", newAirportList)).rejects.toHaveProperty("message", "The airline with the given id was not found");
   });
 
   it('deleteAirportFromAirline should remove a airport from a airline', async () => {
@@ -127,6 +127,6 @@ describe('AirportAirlineService', () => {
 
   it('deleteAirportFromAirline should throw an exception for a non-existent airport', async () => {
     const airport: AirportEntity = airportList[0];
-    await expect(service.deleteAirportFromAirline( airport.id, "0")).rejects.toHaveProperty("message", "The airline with the given id was not found");
+    await expect(service.deleteAirportFromAirline( airport.id, "7f29b477-ba35-44a6-aa12-d163721af71c")).rejects.toHaveProperty("message", "The airline with the given id was not found");
   });
 });
